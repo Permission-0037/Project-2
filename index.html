@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Opener</title>
+</head>
+<body>
+    <div>
+        <h1>URL Opener</h1>
+      <p>このHTMLプログラムは、ユーザーが指定したURLを入力し、そのURLをiframe内で表示するシンプルな「URL Opener」アプリケーションです。以下に、プログラムの各部分について詳しく説明します。
+HTML構造
+
+DOCTYPE宣言: "DOCTYPE html"は、文書がHTML5であることを示します。
+
+htmlタグ: "html lang="ja""は、文書の言語を日本語に設定しています。
+
+headセクション:
+
+"meta charset="UTF-8""は、文字エンコーディングをUTF-8に設定し、国際的な文字を正しく表示できるようにします。
+
+"meta name="viewport" content="width=device-width, initial-scale=1.0""は、レスポンシブデザインを実現するために、ビューポートの設定を行います。これにより、モバイルデバイスでも適切に表示されます。
+
+"title"URL Opener"title"は、ブラウザのタブに表示されるページのタイトルを設定します。
+bodyセクション
+
+コンテナ: "div"タグで囲まれた部分が、アプリケーションの主要なコンテナです。
+
+見出し: "h1"URL Opener"h1"は、アプリケーションのタイトルを表示します。
+
+入力フィールド:
+
+"input type="text" id="urlInput" placeholder="URLを入力してください""は、ユーザーがURLを入力するためのテキストボックスです。プレースホルダーには「URLを入力してください」と表示されます。
+
+"input type="number" id="heightInput" placeholder="高さを入力(px)" min="100""は、iframeの高さを指定するための数値入力フィールドです。最小値は100pxに設定されています。
+
+ボタン: "button id="openButton""開く"button"は、ユーザーが入力したURLを開くためのボタンです。
+
+iframe: "iframe id="urlFrame" src="" style="width: 100%; border: none;"iframe"は、指定されたURLを表示するための埋め込みフレームです。初期状態ではsrc属性は空で、幅は100%に設定されています。
+JavaScriptの機能
+
+イベントリスナー:
+
+"document.getElementById('openButton').addEventListener('click', function() {...});"は、ボタンがクリックされたときに実行される関数を定義します。
+
+URLの取得と検証:
+
+"const url = document.getElementById('urlInput').value;"で、ユーザーが入力したURLを取得します。
+
+"if (url) {...}"で、URLが入力されているかを確認します。入力がない場合は、アラートで「URLを入力してください。」と通知します。
+
+URLのフォーマット:
+
+"const formattedUrl = url.startsWith('http://') || url.startsWith('https://') ? url : 'http://' + url;"では、URLが「http://」または「https://」で始まるかをチェックし、そうでない場合は「http://」を追加します。
+
+iframeのsrc設定:
+
+"document.getElementById('urlFrame').src = formattedUrl;"で、iframeのsrc属性にフォーマットされたURLを設定します。
+
+高さの設定:
+
+"if (height) {...}"で、ユーザーが指定した高さがあるかを確認し、指定があればその高さをiframeに適用します。指定がない場合は、デフォルトの高さ500pxを設定します。
+ユーザーインターフェース
+
+このプログラムは、シンプルで直感的なユーザーインターフェースを提供します。ユーザーはURLを入力し、高さを指定してボタンをクリックするだけで、指定したウェブページをiframe内で表示できます。これにより、他のウェブサイトを簡単に参照したり、テストしたりすることができます。
+注意点
+
+セキュリティ: 一部のウェブサイトは、iframe内での表示を制限している場合があります。これにより、特定のURLが正しく表示されないことがあります。</p>
+        <input type="text" id="urlInput" placeholder="URLを入力してください">
+        <input type="number" id="heightInput" placeholder="高さを入力(px)" min="100">
+        <button id="openButton">開く</button>
+        <iframe id="urlFrame" src="" style="width: 100%; border: none;"></iframe>
+    </div>
+
+    <script>
+        document.getElementById('openButton').addEventListener('click', function() {
+            const url = document.getElementById('urlInput').value;
+            const height = document.getElementById('heightInput').value;
+
+            if (url) {
+                const formattedUrl = url.startsWith('http://') || url.startsWith('https://') ? url : 'http://' + url;
+                document.getElementById('urlFrame').src = formattedUrl;
+
+                // 高さを設定
+                if (height) {
+                    document.getElementById('urlFrame').style.height = height + 'px';
+                } else {
+                    document.getElementById('urlFrame').style.height = '500px'; // デフォルトの高さ
+                }
+            } else {
+                alert('URLを入力してください。');
+            }
+        });
+    </script>
+</body>
+</html>
